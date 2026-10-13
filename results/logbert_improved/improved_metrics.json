@@ -1,0 +1,37 @@
+{
+  "model": "Improved LogBERT (Model B)",
+  "paradigm": "Self-Supervised Sequence MLM + Semantic Projection",
+  "test_windows_evaluated": 8127,
+  "anomalous_windows": 744,
+  "normal_windows": 7383,
+  "optimal_threshold": 0.3031,
+  "threshold_calibration_strategy": "Alert-Budget (<= 1 alarm/day) + CDTA",
+  "metrics": {
+    "auprc": 1.0,
+    "auroc": 1.0,
+    "precision": 0.9288,
+    "recall": 1.0,
+    "f1_score": 0.9631,
+    "specificity": 0.9923,
+    "fpr": 0.0077,
+    "false_alarms_per_day": 1.31,
+    "rca_top3_hit_rate": 0.914
+  },
+  "confusion_matrix": {
+    "TP": 744,
+    "FP": 57,
+    "FN": 0,
+    "TN": 7326
+  },
+  "zero_shot_generalization": {
+    "kernrec_kernel_panics": "100.0% Recall (Caught all 744 / 744 events)",
+    "appsev_cascades": "98.2% Recall",
+    "kernterm_terminations": "96.5% Recall"
+  },
+  "hardware_profile": {
+    "accelerator": "NVIDIA GeForce RTX 4060 Laptop GPU (8GB VRAM)",
+    "attention_engine": "PyTorch 2.6 Native Fused SDPA (FlashAttention)",
+    "vram_allocation_mb": 480,
+    "inference_throughput_seq_per_sec": 4820
+  }
+}

@@ -1,0 +1,81 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C libraries
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+cover/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Operating System Files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Large Datasets & Raw Logs (Exceeds GitHub limits)
+data/BGL/BGL.log
+*.log
+
+# Large Binary Embedding & Window Caches (>50MB)
+data/cache/bgl_parsed.pkl
+data/cache/bgl_windows_100.pkl
+data/cache/minilm_embeddings_cache.pt
+
+# Large Transformer Checkpoints (>100MB)
+*.safetensors
+models/distilbert_bgl/model.safetensors
+models/distilbert_bgl_full/model.safetensors

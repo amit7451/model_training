@@ -1,0 +1,14 @@
+{
+  "model_name": "Model C (Semantic Multi-Task Diagnoser)",
+  "embed_dim": 384,
+  "d_model": 384,
+  "nhead": 6,
+  "num_layers": 3,
+  "dim_feedforward": 1024,
+  "num_classes": 12,
+  "use_delta_t": true,
+  "use_category_head": true,
+  "embedding_type": "regex_masked",
+  "optimal_threshold": 0.912109,
+  "total_trainable_params": 4479631
+}

@@ -1,0 +1,28 @@
+{
+  "model": "LogBERT (Faithful Original)",
+  "dataset": "BGL (Full 4.75M Records)",
+  "train_normal_windows": 14457,
+  "val_windows": 12132,
+  "test_windows": 9165,
+  "precision": 0.16181606519208383,
+  "recall": 0.9341397849462365,
+  "f1_score": 0.27584838261559835,
+  "accuracy": 0.5510028300725975,
+  "specificity": 0.5123933360422592,
+  "fpr": 0.48760666395774077,
+  "roc_auc": 0.6883187764975919,
+  "pr_auc": 0.1309571935662945,
+  "confusion_matrix": {
+    "TP": 695,
+    "FP": 3600,
+    "FN": 49,
+    "TN": 3783
+  },
+  "optimal_threshold": 0.2,
+  "completed_epochs": 5,
+  "best_epoch": 3,
+  "total_train_sec": 456.24283170700073,
+  "total_params": 2203834,
+  "hardware": "NVIDIA GeForce RTX 4060 Laptop GPU",
+  "timestamp": "2026-10-13T02:54:01.245007"
+}

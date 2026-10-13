@@ -1,0 +1,245 @@
+{
+  "model": "Model C (Semantic Multi-Task Diagnoser)",
+  "dataset": "IBM BlueGene/L (BGL Full 4.75M Records, Chronological 80/20)",
+  "hardware": "NVIDIA GeForce RTX 4060 Laptop GPU",
+  "train_windows": 34184,
+  "val_windows": 3798,
+  "test_windows": 9497,
+  "optimal_threshold": 0.912109,
+  "detection_metrics": {
+    "AUPRC (Primary)": 0.9179,
+    "AUROC": 0.9669,
+    "Optimal Threshold": 0.912109,
+    "Precision": 0.9831,
+    "Recall": 0.8696,
+    "F1-Score": 0.9229,
+    "TP": 700,
+    "FP": 12,
+    "FN": 105,
+    "TN": 8680,
+    "TPR @ 1% FPR": 0.9217,
+    "FPR @ 95% Recall": 0.4486,
+    "False Alarms/Day (214.7d)": 0.06,
+    "Predicted-Positive Rate (PPR)": 0.075
+  },
+  "localization_rca": {
+    "theoretical": {
+      "Setting": "theoretical",
+      "Variant": "standard",
+      "HR@1": 0.4708,
+      "HR@3": 0.5826,
+      "HR@5": 0.6199,
+      "PR@3": 0.4832,
+      "PR@5": 0.4939,
+      "MAP@5": 0.4767,
+      "MRR": 0.5427,
+      "Evaluated Windows": 805
+    },
+    "actual": {
+      "Setting": "actual",
+      "Variant": "standard",
+      "HR@1": 0.4565,
+      "HR@3": 0.5787,
+      "HR@5": 0.618,
+      "PR@3": 0.4719,
+      "PR@5": 0.4837,
+      "MAP@5": 0.4613,
+      "MRR": 0.533,
+      "Evaluated Windows": 712
+    },
+    "first_alert": {
+      "Setting": "theoretical",
+      "Variant": "first_alert_only",
+      "HR@1": 0.2323,
+      "HR@3": 0.2683,
+      "HR@5": 0.2857,
+      "PR@3": 0.0894,
+      "PR@5": 0.0571,
+      "MAP@5": 0.2518,
+      "MRR": 0.2689,
+      "Evaluated Windows": 805
+    },
+    "perturbation_support": 0.222
+  },
+  "fault_categories": {
+    "APPCHILD": {
+      "count": 1,
+      "detected": 1,
+      "recall": 1.0
+    },
+    "APPOUT": {
+      "count": 9,
+      "detected": 1,
+      "recall": 0.1111
+    },
+    "APPRES": {
+      "count": 32,
+      "detected": 32,
+      "recall": 1.0
+    },
+    "APPSEV": {
+      "count": 413,
+      "detected": 396,
+      "recall": 0.9588
+    },
+    "APPTO": {
+      "count": 23,
+      "detected": 23,
+      "recall": 1.0
+    },
+    "APPTORUS": {
+      "count": 2,
+      "detected": 0,
+      "recall": 0.0
+    },
+    "KERNCON": {
+      "count": 2,
+      "detected": 2,
+      "recall": 1.0
+    },
+    "KERNDTLB": {
+      "count": 3,
+      "detected": 3,
+      "recall": 1.0
+    },
+    "KERNMC": {
+      "count": 61,
+      "detected": 45,
+      "recall": 0.7377
+    },
+    "KERNMNTF": {
+      "count": 28,
+      "detected": 28,
+      "recall": 1.0
+    },
+    "KERNNOETH": {
+      "count": 2,
+      "detected": 0,
+      "recall": 0.0
+    },
+    "KERNPAN": {
+      "count": 2,
+      "detected": 1,
+      "recall": 0.5
+    },
+    "KERNREC": {
+      "count": 51,
+      "detected": 1,
+      "recall": 0.0196
+    },
+    "KERNRTSA": {
+      "count": 1,
+      "detected": 1,
+      "recall": 1.0
+    },
+    "KERNRTSP": {
+      "count": 85,
+      "detected": 85,
+      "recall": 1.0
+    },
+    "KERNSERV": {
+      "count": 3,
+      "detected": 3,
+      "recall": 1.0
+    },
+    "KERNSOCK": {
+      "count": 14,
+      "detected": 13,
+      "recall": 0.9286
+    },
+    "KERNSTOR": {
+      "count": 3,
+      "detected": 1,
+      "recall": 0.3333
+    },
+    "KERNTERM": {
+      "count": 58,
+      "detected": 58,
+      "recall": 1.0
+    },
+    "KERNTLBE": {
+      "count": 1,
+      "detected": 0,
+      "recall": 0.0
+    },
+    "LINKBLL": {
+      "count": 1,
+      "detected": 1,
+      "recall": 1.0
+    },
+    "MASABNORM": {
+      "count": 4,
+      "detected": 3,
+      "recall": 0.75
+    },
+    "MONILL": {
+      "count": 1,
+      "detected": 1,
+      "recall": 1.0
+    },
+    "MONPOW": {
+      "count": 5,
+      "detected": 1,
+      "recall": 0.2
+    }
+  },
+  "ablations": {
+    "Model C (Full Multi-Task)": {
+      "AUPRC": 0.9179,
+      "AUROC": 0.9669,
+      "F1": 0.9229,
+      "HR@1": 0.4708,
+      "Params": "4.48M"
+    },
+    "Ablation 1a: Drain-Template Embeddings": {
+      "AUPRC": 0.9577,
+      "AUROC": 0.9859,
+      "F1": 0.9329,
+      "HR@1": 0.5665,
+      "Params": "4.48M"
+    },
+    "Ablation 1b: Discrete Template ID Embeddings": {
+      "AUPRC": 0.3113,
+      "AUROC": 0.6548,
+      "F1": 0.3715,
+      "HR@1": 0.5106,
+      "Params": "4.48M"
+    },
+    "Ablation 2: Without Delta_t": {
+      "AUPRC": 0.9687,
+      "AUROC": 0.9935,
+      "F1": 0.94,
+      "HR@1": 0.5503,
+      "Params": "4.48M"
+    },
+    "Ablation 3: Without Category Head": {
+      "AUPRC": 0.9268,
+      "AUROC": 0.9642,
+      "F1": 0.943,
+      "HR@1": 0.6298,
+      "Params": "4.48M"
+    },
+    "Ablation 4: Ungated Chimera Localizer": {
+      "AUPRC": 0.9278,
+      "AUROC": 0.9823,
+      "F1": 0.9353,
+      "HR@1": 0.522,
+      "Params": "4.48M"
+    },
+    "Ablation 5a: Unseen Slice (Model C Semantic)": {
+      "AUPRC": 0.9132,
+      "AUROC": 0.9337,
+      "F1": 0.9323,
+      "HR@1": "N/A",
+      "Params": "4.48M"
+    },
+    "Ablation 5b: Unseen Slice (Template ID)": {
+      "AUPRC": 0.2168,
+      "AUROC": 0.2554,
+      "F1": 0.2672,
+      "HR@1": "N/A",
+      "Params": "4.48M"
+    }
+  },
+  "completed_at": "2026-10-14T03:32:47.169641"
+}

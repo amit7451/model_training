@@ -1,0 +1,139 @@
+{
+  "model_name": "distilbert-base-uncased-bgl-full",
+  "training_dataset": "IBM BlueGene/L (BGL) Complete 4.75M Stream",
+  "hardware": "NVIDIA GeForce RTX 4060 Laptop GPU",
+  "max_length": 96,
+  "batch_size": 32,
+  "learning_rate": 3e-05,
+  "epochs": 3,
+  "optimal_threshold": 0.0041351318359375,
+  "metrics": {
+    "auprc": 0.9531,
+    "auroc": 0.9662,
+    "accuracy": 0.9488,
+    "precision": 0.9998,
+    "recall": 0.8463,
+    "f1": 0.9167,
+    "confusion_matrix": {
+      "tn": 10008,
+      "fp": 1,
+      "fn": 767,
+      "tp": 4224
+    },
+    "tpr_at_1pct_fpr": 0.8475,
+    "fpr_at_95rec": 0.2206,
+    "false_alarms_per_day": 0.02,
+    "predicted_positive_rate": 0.2817
+  },
+  "category_performance": {
+    "APPCHILD": {
+      "support": 6,
+      "detected": 6,
+      "recall": 1.0,
+      "pilot_recall": "N/A"
+    },
+    "APPOUT": {
+      "support": 4,
+      "detected": 0,
+      "recall": 0.0,
+      "pilot_recall": "N/A"
+    },
+    "APPRES": {
+      "support": 356,
+      "detected": 356,
+      "recall": 1.0,
+      "pilot_recall": 0.82
+    },
+    "APPSEV": {
+      "support": 2578,
+      "detected": 2578,
+      "recall": 1.0,
+      "pilot_recall": 0.998
+    },
+    "APPTO": {
+      "support": 302,
+      "detected": 302,
+      "recall": 1.0,
+      "pilot_recall": 0.85
+    },
+    "KERNDTLB": {
+      "support": 1,
+      "detected": 1,
+      "recall": 1.0,
+      "pilot_recall": 0.991
+    },
+    "KERNMC": {
+      "support": 9,
+      "detected": 4,
+      "recall": 0.4444444444444444,
+      "pilot_recall": "N/A"
+    },
+    "KERNMNTF": {
+      "support": 175,
+      "detected": 175,
+      "recall": 1.0,
+      "pilot_recall": 0.965
+    },
+    "KERNREC": {
+      "support": 752,
+      "detected": 0,
+      "recall": 0.0,
+      "pilot_recall": 0.0
+    },
+    "KERNRTSP": {
+      "support": 9,
+      "detected": 9,
+      "recall": 1.0,
+      "pilot_recall": "N/A"
+    },
+    "KERNSERV": {
+      "support": 10,
+      "detected": 10,
+      "recall": 1.0,
+      "pilot_recall": "N/A"
+    },
+    "KERNSOCK": {
+      "support": 9,
+      "detected": 9,
+      "recall": 1.0,
+      "pilot_recall": "N/A"
+    },
+    "KERNSTOR": {
+      "support": 1,
+      "detected": 1,
+      "recall": 1.0,
+      "pilot_recall": "N/A"
+    },
+    "KERNTERM": {
+      "support": 769,
+      "detected": 769,
+      "recall": 1.0,
+      "pilot_recall": 0.985
+    },
+    "KERNTLBE": {
+      "support": 1,
+      "detected": 1,
+      "recall": 1.0,
+      "pilot_recall": "N/A"
+    },
+    "LINKBLL": {
+      "support": 1,
+      "detected": 1,
+      "recall": 1.0,
+      "pilot_recall": "N/A"
+    },
+    "LINKIAP": {
+      "support": 2,
+      "detected": 2,
+      "recall": 1.0,
+      "pilot_recall": "N/A"
+    },
+    "MASABNORM": {
+      "support": 6,
+      "detected": 0,
+      "recall": 0.0,
+      "pilot_recall": "N/A"
+    }
+  },
+  "completed_at": "2026-10-14T01:30:57.507256"
+}

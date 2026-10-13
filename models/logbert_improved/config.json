@@ -1,0 +1,11 @@
+{
+  "architecture": "ImprovedLogBERT (Model B)",
+  "semantic_dim": 768,
+  "hidden_dim": 128,
+  "n_layers": 3,
+  "n_heads": 4,
+  "k_centers": 4,
+  "max_len": 256,
+  "total_params": 627968,
+  "fused_sdpa": true
+}

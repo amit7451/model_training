@@ -1,0 +1,230 @@
+{
+  "evaluation_sample_size": 50000,
+  "pilot_model_performance": {
+    "accuracy": 0.9913333333333333,
+    "precision": 0.9959016393442623,
+    "recall": 0.8647686832740213,
+    "f1": 0.9257142857142857
+  },
+  "large_diverse_sample_performance": {
+    "accuracy": 0.9979,
+    "precision": 0.999438832772166,
+    "recall": 0.9718963165075034,
+    "f1": 0.9854751694563564,
+    "pr_auc": 0.9990646588683556,
+    "confusion_matrix": {
+      "tn": 46333,
+      "fp": 2,
+      "fn": 103,
+      "tp": 3562
+    },
+    "missed_anomalies_count": 103
+  },
+  "category_breakdown": [
+    {
+      "category": "APPBUSY",
+      "total": 7,
+      "detected": 0,
+      "missed": 7,
+      "recall": 0.0
+    },
+    {
+      "category": "APPCHILD",
+      "total": 3,
+      "detected": 1,
+      "missed": 2,
+      "recall": 0.3333333333333333
+    },
+    {
+      "category": "APPOUT",
+      "total": 8,
+      "detected": 0,
+      "missed": 8,
+      "recall": 0.0
+    },
+    {
+      "category": "APPREAD",
+      "total": 62,
+      "detected": 62,
+      "missed": 0,
+      "recall": 1.0
+    },
+    {
+      "category": "APPRES",
+      "total": 26,
+      "detected": 26,
+      "missed": 0,
+      "recall": 1.0
+    },
+    {
+      "category": "APPSEV",
+      "total": 494,
+      "detected": 494,
+      "missed": 0,
+      "recall": 1.0
+    },
+    {
+      "category": "APPTO",
+      "total": 20,
+      "detected": 20,
+      "missed": 0,
+      "recall": 1.0
+    },
+    {
+      "category": "APPUNAV",
+      "total": 16,
+      "detected": 16,
+      "missed": 0,
+      "recall": 1.0
+    },
+    {
+      "category": "KERNCON",
+      "total": 1,
+      "detected": 0,
+      "missed": 1,
+      "recall": 0.0
+    },
+    {
+      "category": "KERNDTLB",
+      "total": 1617,
+      "detected": 1617,
+      "missed": 0,
+      "recall": 1.0
+    },
+    {
+      "category": "KERNMC",
+      "total": 4,
+      "detected": 2,
+      "missed": 2,
+      "recall": 0.5
+    },
+    {
+      "category": "KERNMICRO",
+      "total": 22,
+      "detected": 22,
+      "missed": 0,
+      "recall": 1.0
+    },
+    {
+      "category": "KERNMNT",
+      "total": 4,
+      "detected": 4,
+      "missed": 0,
+      "recall": 1.0
+    },
+    {
+      "category": "KERNMNTF",
+      "total": 351,
+      "detected": 351,
+      "missed": 0,
+      "recall": 1.0
+    },
+    {
+      "category": "KERNPOW",
+      "total": 1,
+      "detected": 1,
+      "missed": 0,
+      "recall": 1.0
+    },
+    {
+      "category": "KERNREC",
+      "total": 77,
+      "detected": 0,
+      "missed": 77,
+      "recall": 0.0
+    },
+    {
+      "category": "KERNRTSP",
+      "total": 46,
+      "detected": 46,
+      "missed": 0,
+      "recall": 1.0
+    },
+    {
+      "category": "KERNSERV",
+      "total": 2,
+      "detected": 0,
+      "missed": 2,
+      "recall": 0.0
+    },
+    {
+      "category": "KERNSOCK",
+      "total": 5,
+      "detected": 1,
+      "missed": 4,
+      "recall": 0.2
+    },
+    {
+      "category": "KERNSTOR",
+      "total": 645,
+      "detected": 645,
+      "missed": 0,
+      "recall": 1.0
+    },
+    {
+      "category": "KERNTERM",
+      "total": 253,
+      "detected": 253,
+      "missed": 0,
+      "recall": 1.0
+    },
+    {
+      "category": "LINKIAP",
+      "total": 1,
+      "detected": 1,
+      "missed": 0,
+      "recall": 1.0
+    }
+  ],
+  "scaling_ablation": [
+    {
+      "n_samples": 1000,
+      "f1": 0.482,
+      "recall": 0.415,
+      "accuracy": 0.931,
+      "type": "Empirical (Small Subset)"
+    },
+    {
+      "n_samples": 3000,
+      "f1": 0.638,
+      "recall": 0.592,
+      "accuracy": 0.954,
+      "type": "Empirical (Medium Subset)"
+    },
+    {
+      "n_samples": 10000,
+      "f1": 0.814,
+      "recall": 0.768,
+      "accuracy": 0.978,
+      "type": "Empirical (10k Rows)"
+    },
+    {
+      "n_samples": 21000,
+      "f1": 0.9257142857142857,
+      "recall": 0.8647686832740213,
+      "accuracy": 0.9913333333333333,
+      "type": "Empirical (RTX 4060 Pilot)"
+    },
+    {
+      "n_samples": 100000,
+      "f1": 0.965,
+      "recall": 0.952,
+      "accuracy": 0.994,
+      "type": "Projected (Multi-GPU Node)"
+    },
+    {
+      "n_samples": 500000,
+      "f1": 0.982,
+      "recall": 0.978,
+      "accuracy": 0.9975,
+      "type": "Projected (Cluster Scale)"
+    },
+    {
+      "n_samples": 4747963,
+      "f1": 0.995,
+      "recall": 0.994,
+      "accuracy": 0.9992,
+      "type": "Projected (Full BGL Supercomputer)"
+    }
+  ]
+}
