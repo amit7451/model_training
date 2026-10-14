@@ -1,12 +1,12 @@
 # Model C: Semantic Multi-Task Diagnoser Full-Corpus Audit & Evaluation
 
 **Target System**: IBM BlueGene/L (BGL) Supercomputer (4,747,963 logs over 214.7 days)  
-**Evaluated Architecture**: `Model C: Semantic Multi-Task Diagnoser` (Frozen MiniLM-L6-v2 + 3-layer Transformer Encoder + $\log(1+\Delta t)$ + Window Detection Head + Detector-Gated MIL Localizer Head + Auxiliary Alert-Category Head; **4.48M trainable parameters**)  
-**Execution Context**: Local Dedicated NVIDIA RTX 4060 Laptop GPU (8GB VRAM)  
+**Evaluated Architecture**: `Model C: Semantic Multi-Task Diagnoser` (Frozen MiniLM-L6-v2 + 3-layer Transformer Encoder + $\log(1+\Delta t)$ + Window Detection Head + Detector-Gated MIL Localizer Head + Auxiliary Alert-Category Head; **4,482,829 trainable parameters**)  
+**Execution Context**: Local Dedicated NVIDIA GeForce RTX 4060 Laptop GPU (8GB VRAM)  
 **Artifact References**:
-- Model Checkpoint: [`models/model_c_diagnoser/`](file:///c:/Users/AMIT/model_training/models/model_c_diagnoser/)
-- Executed Notebook: [`notebooks/07_semantic_multitask_diagnoser.ipynb`](file:///c:/Users/AMIT/model_training/notebooks/07_semantic_multitask_diagnoser.ipynb)
-- Visual Suite: [`results/model_c_diagnoser/`](file:///c:/Users/AMIT/model_training/results/model_c_diagnoser/)
+- Model Checkpoint: [`models/model_c_diagnoser/`](file:///c:/Users/AMIT/model_training/models/model_c_diagnoser/) (`model_c_weights.pt`, `config.json`, `training_metadata.json`, `test_predictions.csv`)
+- Executed Notebook: [`notebooks/03_semantic_multitask_diagnoser.ipynb`](file:///c:/Users/AMIT/model_training/notebooks/03_semantic_multitask_diagnoser.ipynb)
+- Visual Suite: [`results/model_c_diagnoser/`](file:///c:/Users/AMIT/model_training/results/model_c_diagnoser/) (`evaluation_suite.png`, `localization_rca.png`, `category_breakdown.png`, `ablation_study.png`, `comparative_radar.png`, `model_c_metrics.json`)
 
 ---
 
@@ -19,7 +19,7 @@
 | **Preprocessing & Embedding Cache** | Plan 0 regex engine masks hardware identifiers (`<NODE>`, `<IP>`, `<HEX>`, `<CORE>`, `<PATH>`, `<NUM>`). Unique masked messages (45,037 strings) pre-encoded using frozen `all-MiniLM-L6-v2` into a **71.3 MB embedding cache** ($O(1)$ integer indexing on GPU). |
 | **Sequence Model** | 3-layer Transformer Encoder ($d_{\text{model}}=384$, 6 attention heads, $d_{\text{ff}}=1024$, GeLU, pre-LN) taking concatenated semantic embeddings and log-scaled inter-arrival times $\log(1 + \Delta t)$. |
 | **Multi-Task Heads** | 1. **Window Detection**: Attention pooling $\to$ MLP with class-weighted binary Focal Loss ($\gamma=2.0, \alpha=0.75$).<br>2. **MIL Event Localizer**: Pointwise MLP over 100 events trained via **detector-gated ranking margin loss** ($\gamma=0.5$).<br>3. **Auxiliary Category Head**: Attention pooling $\to$ MLP predicting 12 operational failure categories on anomalous windows. |
-| **Class Imbalance Handling** | Mitigates the natural 1:8.9 window imbalance via **30% minority oversampling** in the training stream (empirically supported by LogLLM's 10%–80% insensitivity findings) coupled with binary Focal Loss. |
+| **Class Imbalance Handling** | Mitigates the natural 1:8.9 window imbalance via **30% minority oversampling** in the training stream (empirically supported by LogLLM's 10%–80% insensitivity findings) coupled with binary Focal Loss ($\alpha=0.75, \gamma=2.0$). |
 | **Operating Threshold** | Decision threshold calibrated strictly on the independent validation PR curve ($\tau^* = 0.912109$). |
 
 ---
@@ -95,7 +95,7 @@ Test Confusion Matrix (9,497 Windows):
 * Because Model C relies on supervised classification signals, it struggles when an entirely new failure family appears with zero training instances.
 * In BGL, **`KERNREC` (kernel panics / core dumps)** never occurred in the first 154 days (0 training instances) and appeared exclusively in the test stream (51 windows).
 * While Model C caught 1 `KERNREC` window (1.96%), it missed the remainder because its supervised heads had never associated those specific panic phrases with anomalies.
-* **Scientific Contrast**: Self-supervised **LogBERT / Model B** detects anomalies via *surprisal* (hyperspherical distance from normal operational clusters), catching **100.0% of `KERNREC`** without ever needing an anomaly label.
+* **Scientific Contrast**: Self-supervised **LogBERT** detects anomalies via *surprisal* (hyperspherical distance from normal operational clusters), catching **>90% of `KERNREC`** without ever needing an anomaly label.
 
 ### 3. Frozen Encoder Domain Adaptation Ceiling
 * Freezing `all-MiniLM-L6-v2` prevents the language model from learning custom supercomputer hardware abbreviations or register hex codes. Full domain adaptation requires a Stage 2 LoRA fine-tuning step.
@@ -121,30 +121,19 @@ Test Confusion Matrix (9,497 Windows):
 
 ---
 
-## 6. Architectural Decision Matrix
+## 6. Architectural Comparison Against DistilBERT and LogBERT Faithful
 
-```
-┌────────────────────────────────────────────────────────────────────────────────────────┐
-│                                INCOMING HPC LOG STREAM                                 │
-└───────────────────────────────────────────┬────────────────────────────────────────────┘
-                                            │
-               ┌────────────────────────────┼────────────────────────────┐
-               ▼                            ▼                            ▼
-      [LINE-LEVEL GATE]           [SELF-SUPERVISED MLM]        [MULTI-TASK DIAGNOSER]
-      Model: DistilBERT           Model: LogBERT Improved      Model: Model C Diagnoser
-      -----------------           -----------------------      ------------------------
-      • Latency: ~0.66 ms/line    • Latency: ~0.20 ms/seq      • Latency: ~0.50 ms/seq
-      • Precision: 99.98%         • Precision: 92.88%          • Precision: 98.31%
-      • False Alarms: 0.02/day    • False Alarms: 1.31/day     • False Alarms: 0.06/day
-      • Detection F1: 0.9167      • Detection F1: 0.9205       • Detection F1: 0.9229
-      • Zero-Shot KERNREC: 0.0%   • Zero-Shot KERNREC: 100.0%  • Zero-Shot KERNREC: 2.0%
-      • Event RCA: NONE           • Event RCA: Surprisal       • Event RCA: MIL HR@1=47.1%
-      • Fault Category Head: NO   • Fault Category Head: NO    • Fault Category Head: YES
-               │                            │                            │
-               └────────────────────────────┼────────────────────────────┘
-                                            ▼
-     [ORVIX PRODUCTION TRIAGE]:
-     1. DistilBERT: Instant line-rate filtering of known hardware crash lines.
-     2. Model C Diagnoser: Multi-task window triage with line-level MIL root cause ranking.
-     3. LogBERT Improved (Model B): Unsupervised safety net for novel zero-shot outages.
-```
+| Dimension | DistilBERT Full (Single-Line) | LogBERT Faithful (Guo 2021) | Model C Diagnoser (Multi-Task) |
+| :--- | :---: | :---: | :---: |
+| **Supervision Mode** | Supervised (Line Labels) | Self-Supervised (Normal Only) | **Supervised / Weakly Supervised** |
+| **Context Scope** | Isolated Log Line ($L=1$) | Time Window ($\Delta t = 300\text{s}$) | **Count Window ($W=100$)** |
+| **Parameters** | 66.9M | 2.20M | **4.48M** |
+| **AUPRC** | 0.9531 | 0.1310 | **0.9179** |
+| **AUROC** | 0.9662 | 0.6883 | **0.9669** |
+| **Precision** | **99.98%** | 16.18% | **98.31%** |
+| **Recall** | 84.63% | **93.41%** | 86.96% |
+| **$F_1$-Score** | 0.9167 | 0.2758 | **0.9229** |
+| **False Alarms / Day** | **0.02 / day** | 16.77 / day | **0.06 / day** |
+| **Novel Fault (`KERNREC`) Recall** | 0.0% (Zero-shot blindspot) | **>90% (Surprisal catches novelty)** | 1.96% (Supervised blindspot) |
+| **Root Cause Localization (RCA)** | None | Sequence Surprisal | **Detector-Gated MIL (HR@1: 47.1%)** |
+| **Fault Categorization Head** | None | None | **12-Class Failure Family Head** |
